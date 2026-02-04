@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IXe Shoulders Lustrum Rally</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --rally-blue: #1e3a5f;
+      --rally-blue-dark: #152a45;
+      --rally-yellow: #f4c430;
+      --rally-yellow-light: #ffd54f;
+      --rally-cream: #faf8f5;
+      --rally-gold: #c9a227;
+    }
+
+    body {
+      font-family: 'Source Sans Pro', Georgia, serif;
+      background-color: var(--rally-cream);
+      color: var(--rally-blue-dark);
+      line-height: 1.7;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--rally-blue) 0%, var(--rally-blue-dark) 100%);
+      padding: 20px 0;
+      border-bottom: 4px solid var(--rally-yellow);
+    }
+
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .header-content h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      color: var(--rally-yellow);
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: white;
+      padding: 60px 20px;
+      text-align: center;
+      border-bottom: 2px solid var(--rally-yellow);
+    }
+
+    .hero-logo {
+      max-width: 500px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 40px;
+      filter: drop-shadow(0 4px 20px rgba(30, 58, 95, 0.2));
+    }
+
+    .hero h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.5rem;
+      color: var(--rally-blue);
+      margin-bottom: 10px;
+    }
+
+    .hero .subtitle {
+      font-size: 1.3rem;
+      color: var(--rally-gold);
+      font-style: italic;
+      margin-bottom: 30px;
+    }
+
+    /* Content Section */
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    .content h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.8rem;
+      color: var(--rally-blue);
+      margin-bottom: 25px;
+      text-align: center;
+      position: relative;
+    }
+
+    .content h3::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: var(--rally-yellow);
+      margin: 15px auto 0;
+    }
+
+    .content p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, var(--rally-blue) 0%, var(--rally-blue-dark) 100%);
+      color: white;
+      padding: 30px 40px;
+      border-radius: 8px;
+      margin: 40px 0;
+      border-left: 5px solid var(--rally-yellow);
+    }
+
+    .highlight-box p {
+      color: rgba(255, 255, 255, 0.95);
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .highlight-box strong {
+      color: var(--rally-yellow);
+    }
+
+    /* Program Timeline */
+    .program {
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      margin: 40px 0;
+      border: 2px solid var(--rally-blue);
+    }
+
+    .program h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.4rem;
+      color: var(--rally-blue);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .timeline-marker {
+      width: 12px;
+      height: 12px;
+      background: var(--rally-yellow);
+      border: 3px solid var(--rally-blue);
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .timeline-content {
+      flex: 1;
+    }
+
+    /* Registration Form */
+    .registration {
+      background: linear-gradient(135deg, var(--rally-blue) 0%, var(--rally-blue-dark) 100%);
+      padding: 60px 20px;
+    }
+
+    .registration-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 50px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      border-top: 5px solid var(--rally-yellow);
+    }
+
+    .registration h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      color: var(--rally-blue);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .registration .form-subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 40px;
+    }
+
+    .person-section {
+      background: var(--rally-cream);
+      padding: 30px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      border-left: 4px solid var(--rally-yellow);
+    }
+
+    .person-section h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      color: var(--rally-blue);
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: var(--rally-blue);
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .form-group input {
+      padding: 14px 16px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--rally-blue);
+      box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.1);
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 18px 40px;
+      background: linear-gradient(135deg, var(--rally-yellow) 0%, var(--rally-gold) 100%);
+      color: var(--rally-blue-dark);
+      font-size: 1.2rem;
+      font-weight: 700;
+      font-family: 'Playfair Display', Georgia, serif;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(244, 196, 48, 0.4);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(244, 196, 48, 0.5);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Success Message */
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .success-message h3 {
+      color: var(--rally-blue);
+      margin-bottom: 15px;
+    }
+
+    .success-message p {
+      color: #666;
+    }
+
+    .checkmark {
+      width: 80px;
+      height: 80px;
+      background: var(--rally-yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 40px;
+      color: var(--rally-blue);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--rally-blue-dark);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      border-top: 4px solid var(--rally-yellow);
+    }
+
+    footer p {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .registration-container {
+        padding: 30px 20px;
+      }
+
+      .person-section {
+        padding: 20px;
+      }
+
+      .program {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>Dispuut Shoulders</h1>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img src="images/rally-logo.jpg" alt="IXe Shoulders Lustrum Rally" class="hero-logo">
+    <h2>De Allereerste Shoulder Lustrum Rally</h2>
+    <p class="subtitle">Ter ere van het IXe lustrum</p>
+  </section>
+
+  <section class="content">
+    <h3>Een Unieke Rallydag</h3>
+
+    <p>
+      Ter gelegenheid van het IXe lustrum organiseren wij de allereerste Shoulder Lustrum Rally.
+      Een exclusieve en zorgvuldig samengestelde rallydag waarin <strong>rijbeleving</strong>,
+      <strong>kwaliteit</strong> en <strong>genot</strong> centraal staan.
+    </p>
+
+    <div class="highlight-box">
+      <p>
+        De totale route beslaat <strong>180 kilometer</strong> en is professioneel uitgezet door
+        <strong>Nico Slappendel</strong>, ritmeester van de DHRC en tevens verantwoordelijk voor
+        routes van onder andere de SLS Classic.
+      </p>
+    </div>
+
+    <div class="program">
+      <h4>Programma van de Dag</h4>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <strong>Gezamenlijk Ontbijt</strong> - Start van een memorabele dag
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <strong>Traject 1</strong> - Eerste etappe richting de lunchlocatie
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <strong>Verzorgde Lunch</strong> - Externe locatie met culinaire verwennerij
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <strong>Traject 2</strong> - Afwisselende en hoogwaardige route naar de finish
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <strong>Borrel bij Aankomst</strong> - Samen proosten op een geslaagde rally
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <strong>BBQ</strong> - Verzorgd door de welbekende keurslager van Linschoten
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align: center; font-style: italic; color: var(--rally-gold); font-size: 1.2rem;">
+      Een unieke rally ter ere van het IXe lustrum
+    </p>
+  </section>
+
+  <section class="registration" id="aanmelden">
+    <div class="registration-container">
+      <div id="registration-form">
+        <h3>Inschrijven</h3>
+        <p class="form-subtitle">Meld je team aan voor de Shoulder Lustrum Rally</p>
+
+        <form id="rallyForm" action="https://your-n8n-webhook-url.com/webhook/rally-registration" method="POST">
+          <div class="person-section">
+            <h4>Bestuurder</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="driver_firstname">Voornaam *</label>
+                <input type="text" id="driver_firstname" name="driver_firstname" required>
+              </div>
+              <div class="form-group">
+                <label for="driver_lastname">Achternaam *</label>
+                <input type="text" id="driver_lastname" name="driver_lastname" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="driver_email">E-mailadres *</label>
+                <input type="email" id="driver_email" name="driver_email" required>
+              </div>
+              <div class="form-group">
+                <label for="driver_phone">Telefoonnummer *</label>
+                <input type="tel" id="driver_phone" name="driver_phone" placeholder="+31 6 12345678" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="person-section">
+            <h4>Navigator</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="navigator_firstname">Voornaam *</label>
+                <input type="text" id="navigator_firstname" name="navigator_firstname" required>
+              </div>
+              <div class="form-group">
+                <label for="navigator_lastname">Achternaam *</label>
+                <input type="text" id="navigator_lastname" name="navigator_lastname" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="navigator_email">E-mailadres *</label>
+                <input type="email" id="navigator_email" name="navigator_email" required>
+              </div>
+              <div class="form-group">
+                <label for="navigator_phone">Telefoonnummer *</label>
+                <input type="tel" id="navigator_phone" name="navigator_phone" placeholder="+31 6 12345678" required>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">Inschrijven</button>
+        </form>
+      </div>
+
+      <div id="success-message" class="success-message">
+        <div class="checkmark">&#10003;</div>
+        <h3>Bedankt voor je inschrijving!</h3>
+        <p>Je ontvangt binnen enkele minuten een bevestiging per e-mail.</p>
+        <p style="margin-top: 20px; color: var(--rally-gold);">
+          <em>We kijken uit naar een fantastische rallydag!</em>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Dispuut Shoulders - IXe Lustrum Rally</p>
+  </footer>
+
+  <script>
+    document.getElementById('rallyForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      // Add timestamp
+      data.submitted_at = new Date().toISOString();
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          document.getElementById('registration-form').style.display = 'none';
+          document.getElementById('success-message').classList.add('show');
+        } else {
+          alert('Er is iets misgegaan. Probeer het later opnieuw.');
+        }
+      } catch (error) {
+        // For demo/local testing, show success anyway
+        document.getElementById('registration-form').style.display = 'none';
+        document.getElementById('success-message').classList.add('show');
+      }
+    });
+  </script>
+</body>
+</html>

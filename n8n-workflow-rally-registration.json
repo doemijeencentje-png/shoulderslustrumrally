@@ -1,0 +1,145 @@
+{
+  "name": "Shoulder Lustrum Rally - Registratie",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rally-registration",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "webhook-1",
+      "name": "Webhook - Ontvang Inschrijving",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: true, message: 'Inschrijving ontvangen' }) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "respond-1",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Inschrijvingen",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $json.submitted_at }}",
+            "Bestuurder Voornaam": "={{ $json.driver_firstname }}",
+            "Bestuurder Achternaam": "={{ $json.driver_lastname }}",
+            "Bestuurder Email": "={{ $json.driver_email }}",
+            "Bestuurder Telefoon": "={{ $json.driver_phone }}",
+            "Navigator Voornaam": "={{ $json.navigator_firstname }}",
+            "Navigator Achternaam": "={{ $json.navigator_lastname }}",
+            "Navigator Email": "={{ $json.navigator_email }}",
+            "Navigator Telefoon": "={{ $json.navigator_phone }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "sheets-1",
+      "name": "Google Sheets - Opslaan",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [750, 200],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YOUR_GOOGLE_CREDENTIAL_ID",
+          "name": "Google Sheets Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.driver_email }},{{ $json.navigator_email }}",
+        "subject": "Bevestiging Inschrijving - IXe Shoulder Lustrum Rally",
+        "emailType": "html",
+        "message": "=<div style=\"font-family: Georgia, serif; max-width: 600px; margin: 0 auto; background: #faf8f5;\">\n  <div style=\"background: linear-gradient(135deg, #1e3a5f 0%, #152a45 100%); padding: 30px; text-align: center; border-bottom: 4px solid #f4c430;\">\n    <h1 style=\"color: #f4c430; margin: 0; font-size: 24px;\">IXe Shoulder Lustrum Rally</h1>\n  </div>\n  \n  <div style=\"padding: 40px 30px;\">\n    <h2 style=\"color: #1e3a5f; margin-top: 0;\">Bedankt voor jullie inschrijving!</h2>\n    \n    <p style=\"color: #333; line-height: 1.7;\">Beste {{ $json.driver_firstname }} & {{ $json.navigator_firstname }},</p>\n    \n    <p style=\"color: #333; line-height: 1.7;\">Wat fantastisch dat jullie meedoen aan de allereerste Shoulder Lustrum Rally ter ere van ons IXe lustrum! We hebben jullie inschrijving in goede orde ontvangen.</p>\n    \n    <div style=\"background: #1e3a5f; color: white; padding: 25px; border-radius: 8px; margin: 25px 0; border-left: 4px solid #f4c430;\">\n      <h3 style=\"color: #f4c430; margin-top: 0;\">Programma van de dag</h3>\n      <ul style=\"margin: 0; padding-left: 20px; line-height: 2;\">\n        <li>Gezamenlijk ontbijt om de dag te starten</li>\n        <li>Traject 1 richting de lunchlocatie</li>\n        <li>Verzorgde externe lunch</li>\n        <li>Traject 2 via een afwisselende route naar de finish</li>\n        <li>Borrel bij aankomst</li>\n        <li>BBQ verzorgd door keurslager van Linschoten</li>\n      </ul>\n    </div>\n    \n    <p style=\"color: #333; line-height: 1.7;\">De route van <strong>180 kilometer</strong> is professioneel uitgezet door Nico Slappendel, ritmeester van de DHRC.</p>\n    \n    <div style=\"background: #f4c430; padding: 20px; border-radius: 8px; margin: 25px 0; text-align: center;\">\n      <p style=\"color: #1e3a5f; margin: 0; font-weight: bold; font-size: 16px;\">Jullie registratiegegevens:</p>\n      <p style=\"color: #1e3a5f; margin: 10px 0 0 0;\">\n        <strong>Bestuurder:</strong> {{ $json.driver_firstname }} {{ $json.driver_lastname }}<br>\n        <strong>Navigator:</strong> {{ $json.navigator_firstname }} {{ $json.navigator_lastname }}\n      </p>\n    </div>\n    \n    <p style=\"color: #333; line-height: 1.7;\">Nadere informatie over de startlocatie, tijden en verdere details volgen binnenkort.</p>\n    \n    <p style=\"color: #333; line-height: 1.7;\">Mochten er vragen zijn, neem dan gerust contact met ons op.</p>\n    \n    <p style=\"color: #333; line-height: 1.7; margin-top: 30px;\">\n      Met sportieve groet,<br>\n      <strong style=\"color: #1e3a5f;\">De Lustrumcommissie</strong><br>\n      <em>Shoulder Automobielclub</em>\n    </p>\n  </div>\n  \n  <div style=\"background: #152a45; padding: 20px; text-align: center; border-top: 4px solid #f4c430;\">\n    <p style=\"color: rgba(255,255,255,0.7); margin: 0; font-size: 12px;\">\n      &copy; 2025 Shoulder Automobielclub - IXe Lustrum Rally\n    </p>\n  </div>\n</div>",
+        "options": {
+          "replyTo": "shoulderluco2025@gmail.com"
+        }
+      },
+      "id": "email-1",
+      "name": "Email - Bevestiging Bestuurder & Navigator",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [750, 400],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YOUR_GMAIL_CREDENTIAL_ID",
+          "name": "shoulderluco2025@gmail.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Shoulder Lustrum Rally - Registratie Workflow\n\n### Wat doet deze workflow:\n1. **Ontvangt** inschrijvingen via webhook\n2. **Slaat op** in Google Sheets\n3. **Stuurt bevestiging** naar beide deelnemers\n\n### Setup instructies:\n1. Maak Google Sheet met kolommen:\n   - Timestamp\n   - Bestuurder Voornaam/Achternaam/Email/Telefoon\n   - Navigator Voornaam/Achternaam/Email/Telefoon\n\n2. Koppel Gmail account (shoulderluco2025@gmail.com)\n\n3. Update webhook URL in index.html",
+        "height": 380,
+        "width": 320
+      },
+      "id": "note-1",
+      "name": "Instructies",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [250, 500]
+    }
+  ],
+  "connections": {
+    "Webhook - Ontvang Inschrijving": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Google Sheets - Opslaan",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Email - Bevestiging Bestuurder & Navigator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0
+}
